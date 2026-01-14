@@ -1,0 +1,74 @@
+{
+  "task_metadata": {
+    "task_id": "BTT1-RT-PPT-01",
+    "task_type": "BasicTransportTest1",
+    "description": "Transport four parts from a source workstation to a rotating table and a precision placement table",
+    "time_limit_seconds": 300,
+    "arena": "ExampleArena"
+  },
+
+  "sequence_policy": "free",
+
+  "source_location": {
+    "name": "WORKSTATION_1",
+    "type": "workstation"
+  },
+
+  "target_locations": [
+    {
+      "name": "WORKSTATION_2",
+      "type": "rotating_table",
+      "rotation": {
+        "angular_velocity_deg_per_s": 30,
+        "direction": "clockwise",
+        "continuous": true
+      }
+    },
+    {
+      "name": "WORKSTATION_3",
+      "type": "ppt",
+      "placement_constraints": {
+        "position_tolerance_mm": 5,
+        "orientation_tolerance_deg": 5
+      }
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "M20_100",
+      "type": "bolt",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2",
+      "allowed_target_types": ["rotating_table"]
+    },
+    {
+      "id": "F20_20_B",
+      "type": "flange",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2",
+      "allowed_target_types": ["rotating_table"]
+    },
+    {
+      "id": "R20",
+      "type": "ring",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_3",
+      "allowed_target_types": ["ppt"]
+    },
+    {
+      "id": "AXLE_01",
+      "type": "axle",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_3",
+      "allowed_target_types": ["ppt"]
+    }
+  ],
+
+  "success_criteria": {
+    "all_objects_delivered": true,
+    "correct_targets": true,
+    "respect_target_constraints": true,
+    "within_time_limit": true
+  }
+}

@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'robot_odometry'
+package_name = 'task_loader'
 
 setup(
     name=package_name,
@@ -14,7 +14,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='shubham',
-    maintainer_email='shubham@todo.todo',
+    maintainer_email='vatsa.shubham@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
@@ -23,8 +23,8 @@ setup(
         ],
     },
     entry_points={
-        'console_scripts': ['simulated_odometry = robot_odometry.simulated_odometry:main',
-        'encoder_odometry = robot_odometry.encoder_odometry:main',
+        'console_scripts': [
+                'task_loader_node = task_loader.task_loader_node:main', 
         ],
     },
 )

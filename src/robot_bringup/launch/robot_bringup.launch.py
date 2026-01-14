@@ -9,7 +9,7 @@ import os
 def generate_launch_description():
 
     # -----------------------------
-    # Paths
+    # Nav2 launch path
     # -----------------------------
     nav2_launch = os.path.join(
         get_package_share_directory('robot_bringup'),
@@ -18,7 +18,29 @@ def generate_launch_description():
     )
 
     # -----------------------------
-    # Base (dummy / real)
+    # Wheel encoder bridge (Arduino)
+    # MUST start first
+    # -----------------------------
+    wheel_bridge = Node(
+        package='wheel_command_bridge',
+        executable='wheel_bridge',
+        name='wheel_bridge',
+        output='screen'
+    )
+
+    # -----------------------------
+    # Encoder-based odometry (REAL)
+    # Publishes /odom + TF odom→base_link
+    # -----------------------------
+    odom_node = Node(
+        package='robot_odometry',
+        executable='encoder_odometry',
+        name='encoder_odometry',
+        output='screen'
+    )
+
+    # -----------------------------
+    # Base controller (no motors yet)
     # -----------------------------
     base_node = Node(
         package='robot_base',
@@ -28,27 +50,7 @@ def generate_launch_description():
     )
 
     # -----------------------------
-    # Odometry (simulated for now)
-    # -----------------------------
-    odom_node = Node(
-        package='robot_odometry',
-        executable='simulated_odometry',
-        name='odometry',
-        output='screen'
-    )
-
-    # -----------------------------
-    # TEMP static TF (REMOVE on real robot)
-    # -----------------------------
-    static_tf = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        arguments=['0', '0', '0', '0', '0', '0', 'odom', 'base_link'],
-        output='screen'
-    )
-
-    # -----------------------------
-    # Nav2
+    # Nav2 stack
     # -----------------------------
     nav2 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(nav2_launch),
@@ -68,9 +70,10 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        base_node,
+        wheel_bridge,
         odom_node,
-        static_tf,     # ❌ REMOVE later
+        base_node,
         nav2,
         task_manager
     ])
+

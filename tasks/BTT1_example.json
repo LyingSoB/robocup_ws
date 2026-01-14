@@ -1,0 +1,60 @@
+{
+  "task_metadata": {
+    "task_id": "BTT1-04",
+    "task_type": "BasicTransportTest1",
+    "description": "Transport four parts from a source workstation to two target workstations",
+    "time_limit_seconds": 300,
+    "arena": "ExampleArena"
+  },
+
+  "sequence_policy": "free",
+
+  "source_location": {
+    "name": "WORKSTATION_1",
+    "type": "workstation"
+  },
+
+  "target_locations": [
+    {
+      "name": "WORKSTATION_2",
+      "type": "workstation"
+    },
+    {
+      "name": "WORKSTATION_3",
+      "type": "workstation"
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "M20_100",
+      "type": "bolt",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2"
+    },
+    {
+      "id": "F20_20_B",
+      "type": "flange",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2"
+    },
+    {
+      "id": "R20",
+      "type": "ring",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_3"
+    },
+    {
+      "id": "AXLE_01",
+      "type": "axle",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_3"
+    }
+  ],
+
+  "success_criteria": {
+    "all_objects_delivered": true,
+    "correct_targets": true,
+    "within_time_limit": true
+  }
+}

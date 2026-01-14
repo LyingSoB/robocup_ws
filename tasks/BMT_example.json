@@ -1,0 +1,50 @@
+{
+  "task_metadata": {
+    "task_id": "BMT-03",
+    "task_type": "BasicManipulation",
+    "description": "Manipulate three objects between two static workstations",
+    "time_limit_seconds": 180,
+    "arena": "ExampleArena"
+  },
+
+  "sequence_policy": "free",
+
+  "source_location": {
+    "name": "WORKSTATION_1",
+    "type": "workstation"
+  },
+
+  "target_locations": [
+    {
+      "name": "WORKSTATION_2",
+      "type": "workstation"
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "M20_100",
+      "type": "bolt",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2"
+    },
+    {
+      "id": "F20_20_B",
+      "type": "flange",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2"
+    },
+    {
+      "id": "R20",
+      "type": "ring",
+      "source": "WORKSTATION_1",
+      "target": "WORKSTATION_2"
+    }
+  ],
+
+  "success_criteria": {
+    "all_objects_transferred": true,
+    "correct_targets": true,
+    "within_time_limit": true
+  }
+}
