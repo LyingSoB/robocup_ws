@@ -11,8 +11,8 @@ class MecanumBase(Node):
 
         # ---------------- ROBOT PARAMETERS ----------------
         self.wheel_radius = 0.05   # meters (100 mm diameter)
-        self.base_length  = 0.30   # meters (front-back distance / 2)
-        self.base_width   = 0.30   # meters (left-right distance / 2)
+        self.base_length  = 0.27   # meters (front-back distance / 2)
+        self.base_width   = 0.25   # meters (left-right distance / 2)
 
         # ---------------- ROS INTERFACES ------------------
         self.cmd_vel_sub = self.create_subscription(

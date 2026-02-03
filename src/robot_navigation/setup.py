@@ -9,11 +9,16 @@ setup(
     version='0.0.0',
     packages=[package_name],
     data_files=[
+        # Required package index
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
+
+        # package.xml
         ('share/' + package_name, ['package.xml']),
+
+        # 🔹 CONFIG FILES (YAML + MAP IMAGES)
         (os.path.join('share', package_name, 'config'),
-            glob('config/*.yaml')),
+            glob('config/*.yaml') + glob('config/*.pgm')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
