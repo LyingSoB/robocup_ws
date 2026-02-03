@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ========================= -->
+  <!-- Links (visuals added later) -->
+  <!-- ========================= -->
+
+  <link name="link_base_yaw"/>
+  <link name="link_shoulder"/>
+  <link name="link_elbow"/>
+  <link name="link_wrist"/>
+  <link name="link_gripper_mount"/>
+  <link name="tool0"/>
+  <link name="camera_link"/>
+
+  <!-- ========================= -->
+  <!-- J1: Base yaw (Z axis) -->
+  <!-- ========================= -->
+  <joint name="joint_base_yaw" type="revolute">
+    <parent link="arm_base_link"/>
+    <child link="link_base_yaw"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <!-- 0° to 240° -->
+    <limit lower="-2.792" upper="1.396" effort="50" velocity="1.0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- J2: Shoulder pitch (Y axis) -->
+  <!-- Offset: z = 15.45 cm -->
+  <!-- ========================= -->
+  <joint name="joint_shoulder_pitch" type="revolute">
+    <parent link="link_base_yaw"/>
+    <child link="link_shoulder"/>
+    <origin xyz="0 0 0.1545" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <!-- 0° to 195° -->
+    <limit lower="-1.57" upper="1.8326" effort="50" velocity="1.0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- J3: Elbow pitch (Y axis) -->
+  <!-- Offset: x = 3 cm, z = 38.96 cm -->
+  <!-- ========================= -->
+  <joint name="joint_elbow_pitch" type="revolute">
+    <parent link="link_shoulder"/>
+    <child link="link_elbow"/>
+    <origin xyz="-0.03 0 0.3896" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <!-- 0° to 215° -->
+    <limit lower="-1.57" upper="2.094" effort="50" velocity="1.0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- J4: Wrist pitch (Y axis) -->
+  <!-- Offset: x = 3 cm, z = 36.5 cm -->
+  <!-- ========================= -->
+  <joint name="joint_wrist_pitch" type="revolute">
+    <parent link="link_elbow"/>
+    <child link="link_wrist"/>
+    <origin xyz="-0.03 0 0.365" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <!-- 0° to 145° -->
+    <limit lower="-0.872" upper="1.57" effort="30" velocity="1.0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- J5: Wrist roll (Z axis) -->
+  <!-- Offset: x = 0.34 cm, z = 9.69 cm -->
+  <!-- ========================= -->
+  <joint name="joint_wrist_roll" type="revolute">
+    <parent link="link_wrist"/>
+    <child link="link_gripper_mount"/>
+    <origin xyz="-0.0034 0 0.0969" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <!-- ±90° -->
+    <limit lower="-3" upper="3" effort="10" velocity="2.0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- TCP (tool0) -->
+  <!-- Offset: z = 14.13 cm -->
+  <!-- Approach direction = -Z -->
+  <!-- ========================= -->
+  <joint name="joint_tool0" type="fixed">
+    <parent link="link_gripper_mount"/>
+    <child link="tool0"/>
+    <origin xyz="0 0 0.1413" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Camera mounted after J4 -->
+  <!-- (example values, can tune later) -->
+  <!-- ========================= -->
+  <joint name="joint_camera_mount" type="fixed">
+    <parent link="link_wrist"/>
+    <child link="camera_link"/>
+    <!-- adjust xyz/rpy once physically measured -->
+    <origin xyz="0.05 0 0.08" rpy="-1.57 0 0"/>
+  </joint>
+
+</robot>
+

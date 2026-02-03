@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="mobile_manipulator">
+
+  <!-- ================================================= -->
+  <!-- Global reference properties (from real robot)     -->
+  <!-- ================================================= -->
+
+  <!-- base_link is placed at the vertical center of robot body -->
+  <xacro:property name="base_height" value="0.135"/>
+
+  <!-- LiDAR position (relative to base_link) -->
+  <xacro:property name="laser_x" value="0.30"/>
+  <xacro:property name="laser_y" value="0.26"/>
+  <xacro:property name="laser_z" value="0.065"/>
+
+  <!-- Arm base (first swivel joint location, relative to base_link) -->
+  <xacro:property name="arm_x" value="0.10"/>
+  <xacro:property name="arm_y" value="0.0"/>
+  <xacro:property name="arm_z" value="0.135"/>
+
+  <!-- ================================================= -->
+  <!-- Base footprint (ground reference frame)           -->
+  <!-- ================================================= -->
+
+  <link name="base_footprint">
+    <!-- No physical geometry; purely a reference frame -->
+    <visual>
+      <geometry>
+        <cylinder radius="0.001" length="0.001"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- ================================================= -->
+  <!-- Base link (robot body reference)                  -->
+  <!-- ================================================= -->
+
+  <link name="base_link">
+    <visual>
+      <!-- Approximate robot body size -->
+      <geometry>
+        <box size="0.54 0.50 0.10"/>
+      </geometry>
+      <!-- Lift box so it sits above base_footprint -->
+      <origin xyz="0 0 0.05"/>
+      <material name="gray">
+        <color rgba="0.6 0.6 0.6 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_footprint_to_base_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 ${base_height}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================================================= -->
+  <!-- LiDAR                                            -->
+  <!-- ================================================= -->
+
+  <link name="laser">
+    <visual>
+      <geometry>
+        <cylinder radius="0.03" length="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser"/>
+    <!-- 30 cm forward, 26 cm left, 20 cm above ground -->
+    <origin xyz="${laser_x} ${laser_y} ${laser_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================================================= -->
+  <!-- Manipulator mount                                -->
+  <!-- ================================================= -->
+
+  <!-- Logical attachment point for the arm -->
+  <link name="arm_base_link"/>
+
+  <joint name="arm_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_base_link"/>
+    <!-- 10 cm forward, centered in Y, ~27 cm above ground -->
+    <origin xyz="${arm_x} ${arm_y} ${arm_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================================================= -->
+  <!-- Manipulator (your existing model)                -->
+  <!-- ================================================= -->
+
+  <xacro:include filename="$(find robot_description)/urdf/manipulator.xacro"/>
+
+</robot>
+

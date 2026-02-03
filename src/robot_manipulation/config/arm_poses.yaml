@@ -1,0 +1,19 @@
+# =========================================
+# Robot Arm Named Poses (Phase 3.1)
+# Units: radians
+# =========================================
+
+home:
+  joint_base_yaw: 0.000
+  joint_shoulder_pitch: -0.698
+  joint_elbow_pitch: 1.919
+  joint_wrist_pitch: 0.785
+  joint_wrist_roll: 0.000
+
+pre_grasp:
+  # base yaw is set dynamically from perception
+  joint_base_yaw: 0.000
+  joint_shoulder_pitch: 0.524
+  joint_elbow_pitch: 1.745
+  joint_wrist_pitch: 1.483
+  joint_wrist_roll: 0.000
