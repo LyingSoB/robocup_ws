@@ -1,0 +1,64 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Name: Tool Properties
+  - Class: rviz_common/Views
+    Name: Views
+  - Class: rviz_common/Time
+    Name: Time
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Frame Timeout: 15
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Robot Description: robot_description
+    - Class: rviz_default_plugins/Pose
+      Name: Object Pose (base)
+      Topic: /arm/object_pose_base
+      Shape: Arrow
+      Color: 255; 25; 0
+      Alpha: 1
+      Axes Length: 0.2
+      Axes Radius: 0.02
+    - Class: rviz_default_plugins/Pose
+      Name: Object Pose (camera)
+      Topic: /arm/object_pose_camera
+      Shape: Arrow
+      Color: 0; 200; 255
+      Alpha: 1
+      Axes Length: 0.2
+      Axes Radius: 0.02
+  Global Options:
+    Fixed Frame: base_link
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+    - Class: rviz_default_plugins/SetInitialPose
+    - Class: rviz_default_plugins/SetGoal
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 2.5
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0.5
+      Pitch: 0.4
+      Yaw: 0.8
+Window Geometry:
+  Height: 900
+  Width: 1400
+  X: 100
+  Y: 100

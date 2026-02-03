@@ -32,6 +32,7 @@ setup(
             'arm_state_machine = robot_manipulation.arm_state_machine:main',
             'base_yaw_planner = robot_manipulation.base_yaw_planner:main',
             'serial_joint_bridge = robot_manipulation.serial_joint_bridge:main',
+            'manipulation_executor = robot_manipulation.manipulation_executor:main',
         ],
     },
 )

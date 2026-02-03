@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'robot_perception'
 
@@ -10,6 +12,9 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
+        (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
+        (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,6 +29,11 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'object_pose_estimator = robot_perception.object_pose_estimator:main',
+            'table_plane_detector = robot_perception.table_plane_detector:main',
+            'color_object_detector = robot_perception.object_detector_color:main',
+            'object_pose_transformer = robot_perception.object_pose_transformer:main',
+            'manipulation_readiness_gate = robot_perception.manipulation_readiness_gate:main',
         ],
     },
 )
